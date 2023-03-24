@@ -8,11 +8,14 @@ const createCheckoutSession = async (req, res) => {
     try {
         const { id } = req.user;
 
+        console.log(req.body.metadata);
+
         const session = await stripe.checkout.sessions.create({
             success_url: `${API_URL}/product/success`,
             cancel_url: `${API_URL}/cancel/products`,
             customer: id,
             line_items: req.body.line_items,
+            metadata: req.body.metadata,
             currency: "USD",
             mode: 'payment',
             payment_method_types: ['card']

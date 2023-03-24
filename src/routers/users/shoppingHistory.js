@@ -7,9 +7,9 @@ const shoppingHistory = async (req, res) => {
 
         const database = await con();
         const collectionCheckoutSessionItems = database.collection('checkoutSessionItems');
-        const resSession = collectionCheckoutSessionItems.find({ id_customer: id }).toArray();
+        const resSession = await collectionCheckoutSessionItems.find({ id_customer: id }).toArray();
 
-        const dataProduct = (await resSession).map((session) => {
+        const dataProduct = resSession.map((session) => {
             return {
                 id_session: session.id_session,
                 created: session.created,

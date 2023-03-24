@@ -26,6 +26,8 @@ const getFavorites = require('./users/getFavorites');
 const deleteFavorites = require('./users/deleteFavorites');
 const comment = require('./users/comment');
 const getComments = require('./users/getComment');
+const getCustomers = require('./admin/getCustomers');
+const getcheckout = require('./admin/getcheckout');
 
 
 router.post('/v1/accounts/create/customer', createCustomer);
@@ -51,6 +53,9 @@ router.delete('/v1/favorites/', authorization_middleware_user, verifyTokenAndStr
 
 router.get('/v1/admin/products/', authorization_middleware_admin, getProducts);
 router.get('/v1/admin/products/:id', authorization_middleware_admin, getProduct);
+router.get('/v1/admin/customers/', authorization_middleware_admin, getCustomers);
+router.post('/v1/admin/checkout/', authorization_middleware_admin, getcheckout);
+
 router.put('/v1/admin/update/product/:id', authorization_middleware_admin, updateProduct);
 router.post('/v1/admin/create/', authorization_middleware_admin, createProduct);
 router.delete('/v1/admin/disabled/product/:id', authorization_middleware_admin, disabledProduct);

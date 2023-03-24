@@ -24,6 +24,8 @@ const getPaymentIntent = async (req, res) => {
             lineItems.data.map(item => collectionProduct.findOne({ id_product: item.price.product }, { projection: { id_product: 1, images: 1, _id: 0 } }))
         );
 
+        console.log(session);
+
         // Armamos el objeto de respuesta con los datos necesarios
         const doc = {
             id_session: session.id,
@@ -36,7 +38,8 @@ const getPaymentIntent = async (req, res) => {
                 description: item.description,
                 quantity: item.quantity,
                 image: products[index].images[0],
-            }))
+            })),
+            metadata: session.metadata
         };
 
         // Si la sesión no existe, la creamos
@@ -49,7 +52,7 @@ const getPaymentIntent = async (req, res) => {
         }
 
         // Devolvemos los datos de los productos comprados
-        return res.json({data: doc.data, charge: doc.charge});
+        return res.json({ data: doc.data, charge: doc.charge });
     } catch (error) {
         console.log(error);
         res.status(404).json({ error: error });

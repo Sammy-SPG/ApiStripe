@@ -43,8 +43,6 @@ const createProduct = async (req, res) => {
             images: req.body.images
         };
 
-        console.log(req.body);
-
         const result = await CollectionProduct.insertOne(doc);
 
         if (createdProduct && price && result) res.json({ status: 'success', message: 'Producto creado' });
